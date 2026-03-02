@@ -16,11 +16,18 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// static files served from project root (for simplicity)
-app.use(express.static(path.join(__dirname, '../')));
+// serve frontend build in production, or static files in development
+const isProduction = process.env.NODE_ENV === 'production';
+if (isProduction) {
+  app.use(express.static(path.join(__dirname, '../frontend/dist')));
+} else {
+  app.use(express.static(path.join(__dirname, '../')));
+}
 
 // enable CORS for development, allow credentials
-app.use(cors({ origin: true, credentials: true }));
+if (!isProduction) {
+  app.use(cors({ origin: true, credentials: true }));
+}
 
 // set up session store with sequelize
 const store = new SequelizeStore({ db: sequelize });
@@ -45,7 +52,10 @@ app.use('/api/applications', appsRouter);
 
 // fallback to index
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html'));
+  const indexPath = isProduction 
+    ? path.join(__dirname, '../frontend/dist/index.html')
+    : path.join(__dirname, '../index.html');
+  res.sendFile(indexPath);
 });
 
 const PORT = process.env.PORT || 3000;
