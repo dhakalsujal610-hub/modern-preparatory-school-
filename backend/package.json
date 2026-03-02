@@ -1,0 +1,32 @@
+{
+  "name": "scool-backend",
+  "version": "1.0.0",
+  "description": "Node.js backend for Riverside Academy website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "init-db": "node init_db.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "connect-session-sequelize": "^7.1.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mysql2": "^3.2.0",
+    "sequelize": "^6.32.1",
+    "sqlite3": "^5.1.7"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "keywords": [
+    "school",
+    "backend",
+    "node",
+    "mysql",
+    "express"
+  ]
+}

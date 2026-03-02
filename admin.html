@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel - Riverside Academy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body class="bg-slate-50">
+  <!-- Login Container (hidden by default) -->
+  <div id="login-container" class="hidden min-h-screen bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+      <div class="bg-white rounded-xl shadow-2xl p-8">
+        <div class="flex justify-center mb-8">
+          <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+        </div>
+
+        <h1 class="text-2xl font-bold text-center text-slate-900 mb-2">Riverside Academy</h1>
+        <p class="text-center text-slate-600 mb-8">Admin Dashboard</p>
+
+        <form id="login-form" class="space-y-4">
+          <div id="login-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm"></div>
+
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-2">Username</label>
+            <input
+              type="text"
+              id="login-username"
+              placeholder="Enter username"
+              value="admin"
+              class="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/10 transition-all"
+              required
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-2">Password</label>
+            <input
+              type="password"
+              id="login-password"
+              placeholder="Enter password"
+              class="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/10 transition-all"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:shadow-lg transition-all disabled:opacity-50"
+          >
+            Login
+          </button>
+        </form>
+
+        <div class="mt-6 pt-6 border-t border-slate-200">
+          <p class="text-xs text-slate-500 text-center mb-2">Demo Credentials</p>
+          <p class="text-xs text-slate-600 text-center">
+            <strong>Username:</strong> admin<br/>
+            <strong>Password:</strong> password
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Dashboard (hidden until logged in) -->
+  <div id="dashboard-container" class="hidden">
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center gap-4">
+            <button id="menu-toggle" class="p-2 hover:bg-slate-100 rounded-lg transition-all lg:hidden">
+              <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <div>
+                <h1 class="text-lg font-bold text-slate-900">Riverside Academy</h1>
+                <p class="text-xs text-slate-500">Admin Dashboard</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="hidden md:flex items-center bg-slate-50 px-4 py-2 rounded-lg border border-slate-200">
+              <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input 
+                type="text" 
+                id="navbar-search"
+                placeholder="Search..." 
+                class="bg-transparent ml-2 outline-none text-slate-700 placeholder-slate-400 w-32"
+              />
+            </div>
+
+            <button id="profile-toggle" class="flex items-center gap-2 p-2 hover:bg-slate-100 rounded-lg transition-all">
+              <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                A
+              </div>
+              <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </button>
+
+            <!-- Profile Dropdown -->
+            <div id="profile-dropdown" class="hidden absolute right-4 top-16 w-48 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-50">
+              <button class="w-full text-left px-4 py-2 text-slate-700 hover:bg-slate-50 text-sm">Profile</button>
+              <button class="w-full text-left px-4 py-2 text-slate-700 hover:bg-slate-50 text-sm">Settings</button>
+              <hr class="my-1" />
+              <button id="logout-btn" class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 font-medium text-sm">
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="flex">
+      <aside id="sidebar" class="fixed lg:relative w-64 h-screen bg-white border-r border-slate-200 transition-transform duration-300 -translate-x-full lg:translate-x-0 z-30">
+        <div class="p-6">
+          <h2 class="text-lg font-bold text-slate-900 mb-8">Menu</h2>
+          
+          <nav class="space-y-2">
+            <a href="#" data-section="dashboard" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg transition-all bg-blue-50 text-blue-600 font-medium border-l-4 border-blue-600">
+              <span class="text-xl">📊</span>
+              <span>Dashboard</span>
+            </a>
+            <a href="#" data-section="applications" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-slate-600 hover:bg-slate-50">
+              <span class="text-xl">📋</span>
+              <span>Applications</span>
+            </a>
+            <a href="#" data-section="students" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-slate-600 hover:bg-slate-50">
+              <span class="text-xl">👨‍🎓</span>
+              <span>Students</span>
+            </a>
+            <a href="#" data-section="reports" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-slate-600 hover:bg-slate-50">
+              <span class="text-xl">📈</span>
+              <span>Reports</span>
+            </a>
+            <a href="#" data-section="settings" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-slate-600 hover:bg-slate-50">
+              <span class="text-xl">⚙️</span>
+              <span>Settings</span>
+            </a>
+          </nav>
+        </div>
+
+        <div class="absolute bottom-0 w-full p-6 border-t border-slate-200">
+          <div class="text-xs text-slate-500 text-center">
+            <p>Riverside Academy</p>
+            <p>Admin v1.0</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <!-- Dashboard Section -->
+          <section id="dashboard-section" class="space-y-8">
+            <div>
+              <h1 class="text-3xl font-bold text-slate-900">Dashboard</h1>
+              <p class="text-slate-600 mt-2">Welcome back! Here's what's happening with your applications.</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div class="card p-6 border-l-4 border-blue-600">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <p class="text-slate-600 text-sm font-medium mb-2">Total Applications</p>
+                    <h3 class="text-3xl font-bold text-slate-900" id="stat-total">0</h3>
+                    <p class="text-sm text-green-600 mt-2">+12% this month</p>
+                  </div>
+                  <div class="text-4xl">📋</div>
+                </div>
+              </div>
+
+              <div class="card p-6 border-l-4 border-yellow-400">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <p class="text-slate-600 text-sm font-medium mb-2">Pending</p>
+                    <h3 class="text-3xl font-bold text-slate-900" id="stat-pending">0</h3>
+                    <p class="text-sm text-yellow-600 mt-2" id="stat-pending-info">0 waiting</p>
+                  </div>
+                  <div class="text-4xl">⏳</div>
+                </div>
+              </div>
+
+              <div class="card p-6 border-l-4 border-green-600">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <p class="text-slate-600 text-sm font-medium mb-2">Approved</p>
+                    <h3 class="text-3xl font-bold text-slate-900" id="stat-approved">0</h3>
+                    <p class="text-sm text-green-600 mt-2">+5 this week</p>
+                  </div>
+                  <div class="text-4xl">✅</div>
+                </div>
+              </div>
+
+              <div class="card p-6 border-l-4 border-red-600">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <p class="text-slate-600 text-sm font-medium mb-2">Rejected</p>
+                    <h3 class="text-3xl font-bold text-slate-900" id="stat-rejected">0</h3>
+                    <p class="text-sm text-red-600 mt-2">3 incomplete</p>
+                  </div>
+                  <div class="text-4xl">❌</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Applications Widget -->
+            <div class="card p-6">
+              <h2 class="text-lg font-bold text-slate-900 mb-4">Recent Applications</h2>
+              <div class="space-y-3" id="recent-apps">
+                <p class="text-slate-500 text-center py-8">Loading applications...</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Applications Section -->
+          <section id="applications-section" class="hidden space-y-6">
+            <div>
+              <h1 class="text-3xl font-bold text-slate-900">Applications</h1>
+              <p class="text-slate-600 mt-2">Manage and review student applications</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="card p-6 space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <!-- Search -->
+                <div>
+                  <label class="block text-sm font-medium text-slate-700 mb-2">Search</label>
+                  <div class="flex items-center bg-slate-50 px-4 py-2.5 rounded-lg border border-slate-200 focus-within:border-blue-600">
+                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input
+                      type="text"
+                      id="filter-search"
+                      placeholder="Student, parent, or email..."
+                      class="bg-transparent ml-2 outline-none w-full text-slate-700 placeholder-slate-400"
+                    />
+                  </div>
+                </div>
+
+                <!-- Status Filter -->
+                <div>
+                  <label class="block text-sm font-medium text-slate-700 mb-2">Status</label>
+                  <select id="filter-status" class="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-blue-600">
+                    <option value="">All</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Rejected">Rejected</option>
+                  </select>
+                </div>
+
+                <!-- Grade Filter -->
+                <div>
+                  <label class="block text-sm font-medium text-slate-700 mb-2">Grade</label>
+                  <select id="filter-grade" class="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-blue-600">
+                    <option value="">All</option>
+                    <option value="1">Grade 1</option>
+                    <option value="3">Grade 3</option>
+                    <option value="5">Grade 5</option>
+                    <option value="7">Grade 7</option>
+                  </select>
+                </div>
+
+                <!-- Sort -->
+                <div>
+                  <label class="block text-sm font-medium text-slate-700 mb-2">Sort By</label>
+                  <select id="filter-sort" class="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-blue-600">
+                    <option value="date-desc">Newest First</option>
+                    <option value="date-asc">Oldest First</option>
+                    <option value="name">Student Name</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Applications Table -->
+            <div class="card overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full">
+                  <thead class="bg-slate-50 border-b border-slate-200">
+                    <tr>
+                      <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Student</th>
+                      <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Parent</th>
+                      <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Grade</th>
+                      <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Status</th>
+                      <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Submitted</th>
+                      <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-200" id="applications-table-body">
+                    <tr>
+                      <td colspan="6" class="px-6 py-8 text-center text-slate-500">Loading applications...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Pagination -->
+              <div id="pagination-container" class="hidden flex items-center justify-between px-6 py-4 border-t border-slate-200 bg-slate-50">
+                <p class="text-sm text-slate-600" id="pagination-info"></p>
+                <div class="flex gap-2">
+                  <button id="btn-prev-page" class="px-4 py-2 bg-white border border-slate-200 rounded-lg hover:bg-slate-50">
+                    Previous
+                  </button>
+                  <button id="btn-next-page" class="px-4 py-2 bg-white border border-slate-200 rounded-lg hover:bg-slate-50">
+                    Next
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Students Section -->
+          <section id="students-section" class="hidden space-y-6">
+            <div>
+              <h1 class="text-3xl font-bold text-slate-900">Students</h1>
+              <p class="text-slate-600 mt-2">Manage enrolled students</p>
+            </div>
+
+            <div class="card p-6">
+              <input
+                type="text"
+                id="student-search"
+                placeholder="Search students..."
+                class="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-blue-600"
+              />
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="students-grid">
+              <p class="col-span-full text-center text-slate-500 py-12">Loading students...</p>
+            </div>
+          </section>
+
+          <!-- Reports Section -->
+          <section id="reports-section" class="hidden space-y-6">
+            <div>
+              <h1 class="text-3xl font-bold text-slate-900">Reports</h1>
+              <p class="text-slate-600 mt-2">View detailed reports and analytics</p>
+            </div>
+            <div class="card p-8 text-center">
+              <p class="text-slate-500 text-lg">Reports feature coming soon</p>
+            </div>
+          </section>
+
+          <!-- Settings Section -->
+          <section id="settings-section" class="hidden space-y-6">
+            <div>
+              <h1 class="text-3xl font-bold text-slate-900">Settings</h1>
+              <p class="text-slate-600 mt-2">Manage your dashboard preferences</p>
+            </div>
+            <div class="card p-8 text-center">
+              <p class="text-slate-500 text-lg">Settings feature coming soon</p>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-20 hidden lg:hidden"></div>
+  </div>
+
+  <!-- Application Details Modal -->
+  <div id="app-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden p-4">
+    <div class="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-96 overflow-y-auto">
+      <div class="flex items-center justify-between p-6 border-b border-slate-200 sticky top-0 bg-white">
+        <h2 class="text-2xl font-bold text-slate-900">Application Details</h2>
+        <button id="modal-close-btn" class="p-1 hover:bg-slate-100 rounded-lg">
+          <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-6" id="modal-content">
+        <!-- Content will be inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Dialog -->
+  <div id="confirm-dialog" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl shadow-xl max-w-sm w-full p-6 mx-4">
+      <h2 class="text-lg font-bold text-slate-900 mb-2" id="confirm-title"></h2>
+      <p class="text-slate-600 mb-6" id="confirm-message"></p>
+      
+      <div class="flex gap-3">
+        <button id="confirm-btn" class="flex-1 px-4 py-2 text-white rounded-lg font-medium transition-all"></button>
+        <button id="cancel-btn" class="flex-1 px-4 py-2 bg-slate-200 text-slate-800 rounded-lg font-medium hover:bg-slate-300 transition-all">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-4 right-4 max-w-sm transition-all duration-300 z-50 hidden">
+    <div id="toast-content" class="card border p-4"></div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

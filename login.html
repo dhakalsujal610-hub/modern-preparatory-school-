@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login - Riverside Academy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body class="bg-slate-100 flex items-center justify-center h-screen">
+  <div class="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
+    <h1 class="text-2xl font-bold text-center mb-6">Administrator Sign In</h1>
+    <form id="login-form" class="space-y-4">
+      <div>
+        <label for="username" class="block text-sm font-medium text-slate-700">Username</label>
+        <input type="text" id="username" name="username" required class="input-field w-full mt-1 px-3 py-2 rounded-lg" />
+      </div>
+      <div>
+        <label for="password" class="block text-sm font-medium text-slate-700">Password</label>
+        <input type="password" id="password" name="password" required class="input-field w-full mt-1 px-3 py-2 rounded-lg" />
+      </div>
+      <button type="submit" class="btn-primary w-full py-2 rounded-full text-white font-semibold">Sign In</button>
+    </form>
+    <p id="error-msg" class="mt-4 text-red-600 text-sm hidden"></p>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>
